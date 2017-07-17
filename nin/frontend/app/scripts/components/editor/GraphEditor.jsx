@@ -360,13 +360,25 @@ class GraphEditor extends React.Component {
       }
     }
 
-    return e('div', {ref: ref => this.container = ref}, e('svg',
-      {height: 99999, width: 99999},
-      e('g', {
-        transform: `matrix(${this.state.scale},0,0,${this.state.scale},${this.state.x},${this.state.y})`,
-      }, graphEditorNodes,
-      connections.map(connection => e(Connection, {connection, fromPath: connection.key.split('|')[0], toPath: connection.key.split('|')[1], editor: this, scale: this.state.scale, key: connection.key})),
-      )));
+    const connectionNodes = connections.map(connection =>
+      e(Connection, {
+        connection,
+        fromPath: connection.key.split('|')[0],
+        toPath: connection.key.split('|')[1],
+        editor: this,
+        scale: this.state.scale,
+        key: connection.key}));
+
+    const transform = `matrix(${this.state.scale},0,0,${this.state.scale},${this.state.x},${this.state.y})`;
+    return (
+      <div ref={ref => this.container = ref}>
+        <svg height="99999" width="99999">
+          <g transform={transform}>
+            {graphEditorNodes}
+            {connectionNodes}
+          </g>
+        </svg>
+      </div>);
   }
 }
 
