@@ -5,7 +5,7 @@ all:
 
 .PHONY: run
 run:
-	node_modules/.bin/webpack --watch
+	node_modules/.bin/webpack --watch --display-error-details
 
 .PHONY: lint
 lint:
